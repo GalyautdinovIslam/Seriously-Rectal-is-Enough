@@ -34,6 +34,43 @@ Failed to load dummy data.Wrote /home/oncall/db_initialized so we don't bootstra
 
 **Формат ответа**: в свободной форме, с описанием причины ошибки и рекомендации по устранению
 
+## Решение 1.1
+
+### Ход действий
+
+Сначала получил ошибку, при выполнении `docker-compose up`:
+
+```
+130.2 E: Failed to fetch http://security.ubuntu.com/ubuntu/pool/main/f/freetype/libfreetype6_2.10.1-2ubuntu0.3_amd64.deb  403  connecting to archive.ubuntu.com:80: connecting to 91.189.91.81:80: dial tcp 91.189.91.81:80: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. [IP: 91.189.91.83 80]
+130.2 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+------
+failed to solve: process "/bin/sh -c DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=--force-confold dist-upgrade     && DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=--force-confold install libffi-dev libsasl2-dev python3-dev         sudo libldap2-dev libssl-dev python3-pip python3-setuptools python3-venv         mysql-client uwsgi uwsgi-plugin-python3 nginx     && rm -rf /var/cache/apt/archives/*" did not complete successfully: exit code: 100
+```
+
+В **Dockerfile** нашел упоминание **ubuntu:20.04**, решил перед `docker-compose up` выполнить `docker pull ubuntu:20.04`, так как число 403 в ошибке выглядит очень подозрительным, находясь в России. Как итог далее получаем ошибку из условия задачи.
+
+Предупреждения `mysql: [Warning] Using a password on the command line interface can be insecure.` пропускаем, так как не выглядят источником ошибки. Строчка `DB successfully loaded /home/oncall/db/schema.v0.sql` говорит о том, что с этим скриптом всё ок. А вот с `/home/oncall/db/dummy_data.sql` что-то не то.
+
+`ERROR 1136 (21S01) at line 16: Column count doesn't match value count at row 1`. Идем смотреть файл `db/dummy_data.sql`, а именно строку 16. Кажется неправильное количество значений. Идем сравнивать DDL-описание таблицы **TEAM** и значение в **INSERT**. В таблице 11 полей, а в SQL-запросе 10. Сравниваем значения с типами полей, понимаем, что не хватает последнего: **api_managed_roster**. Его значение по-умолчанию - **FALSE**.
+
+Поправим 16ую строчку. Как было:
+
+```mysql
+INSERT INTO `team` VALUES (1,'Test Team','#team','#team-alerts','team@example.com','US/Pacific',1,NULL,0,NULL);
+```
+
+Как стало:
+
+```mysql
+INSERT INTO `team` VALUES (1,'Test Team','#team','#team-alerts','team@example.com','US/Pacific',1,NULL,0,NULL,0);
+```
+
+Теперь получаем `DB successfully loaded /home/oncall/db/dummy_data.sql`. 
+
+### Итоговая рекомендация
+
+Поправить sql-скрипт в файле db/dummy_data.sql, строка 16: добавить значение для поля **api_managed_roster** (по-умолчанию **FALSE**).
+
 ---
 
 ## Условия 1.2
