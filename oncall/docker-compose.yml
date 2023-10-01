@@ -6,6 +6,7 @@ services:
     hostname: oncall
     ports:
       - "8080:8080"
+      - "8888:8888"
     environment:
       - DOCKER_DB_BOOTSTRAP=1
       - IRIS_API_HOST=iris
@@ -19,6 +20,21 @@ services:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=1234
+    networks:
+      - iris
+
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention.time=15d'
+    ports:
+      - "9090:9090"
+    restart: always
+    depends_on:
+      - oncall-web
     networks:
       - iris
 
