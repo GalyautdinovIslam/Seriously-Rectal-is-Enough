@@ -70,6 +70,17 @@ services:
     networks:
       - iris
 
+  blackbox-exporter:
+    image: quay.io/prometheus/blackbox-exporter:latest
+    ports:
+      - "9115:9115"
+    command:
+      - "--config.file=/etc/blackbox_exporter/config.yml"
+    volumes:
+      - ./configs/blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
+    networks:
+      - iris
+
 networks:
   iris:
     name: iris
