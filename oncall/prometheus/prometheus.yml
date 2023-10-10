@@ -25,3 +25,7 @@ scrape_configs:
         - oncall-web  # goes here
         type: A
         port: 8888
+      - names:
+          - node-exporter
+        type: A
+        port: 9100
