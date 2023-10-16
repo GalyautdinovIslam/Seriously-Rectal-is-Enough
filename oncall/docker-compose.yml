@@ -13,16 +13,12 @@ services:
     volumes:
       - ./configs/config.docker.yaml:/home/oncall/config/config.yaml
       - './textfile:/tmp/textfile'
-    networks:
-      - iris
   
   oncall-mysql:
     hostname: oncall-mysql
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-    networks:
-      - iris
 
   prometheus:
     image: prom/prometheus:v2.36.2
@@ -36,8 +32,6 @@ services:
     restart: always
     depends_on:
       - oncall-web
-    networks:
-      - iris
 
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -67,8 +61,6 @@ services:
       - "--no-collector.tapestats" #  метрики показывают, что не используется
       - "--no-collector.zfs" #  метрики показывают, что не используется
       - "--collector.textfile.directory=/textfile"
-    networks:
-      - iris
 
   blackbox-exporter:
     image: quay.io/prometheus/blackbox-exporter:latest
@@ -78,9 +70,4 @@ services:
       - "--config.file=/etc/blackbox_exporter/config.yml"
     volumes:
       - ./configs/blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
-    networks:
-      - iris
 
-networks:
-  iris:
-    name: iris

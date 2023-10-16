@@ -29,6 +29,10 @@ scrape_configs:
           - node-exporter
         type: A
         port: 9100
+  - job_name: 'custom-exporter'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'host.docker.internal:8777' ]
   - job_name: 'blackbox-tcp'
     metrics_path: /probe
     params:
