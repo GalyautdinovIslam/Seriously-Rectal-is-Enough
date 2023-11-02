@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   oncall-web:
@@ -13,6 +13,11 @@ services:
     volumes:
       - ./configs/config.docker.yaml:/home/oncall/config/config.yaml
       - './textfile:/tmp/textfile'
+      - 'oncall-filebeat:/home/oncall/var/log'
+    depends_on:
+      - oncall-mysql
+      - prometheus
+      - filebeat
   
   oncall-mysql:
     hostname: oncall-mysql
@@ -30,8 +35,6 @@ services:
     ports:
       - "9090:9090"
     restart: always
-    depends_on:
-      - oncall-web
 
   node-exporter:
     image: quay.io/prometheus/node-exporter:latest
@@ -61,6 +64,8 @@ services:
       - "--no-collector.tapestats" #  метрики показывают, что не используется
       - "--no-collector.zfs" #  метрики показывают, что не используется
       - "--collector.textfile.directory=/textfile"
+    depends_on:
+      - prometheus
 
   blackbox-exporter:
     image: quay.io/prometheus/blackbox-exporter:latest
@@ -70,4 +75,61 @@ services:
       - "--config.file=/etc/blackbox_exporter/config.yml"
     volumes:
       - ./configs/blackbox/blackbox.yml:/etc/blackbox_exporter/config.yml
+    depends_on:
+      - prometheus
 
+  elasticsearch:
+    image: elasticsearch:${STACK_VERSION}
+    labels:
+      co.elastic.logs/enabled: false
+    volumes:
+      - './elk/elastic_data:/usr/share/elasticsearch/data/'
+    ports:
+      - '9200:9200'
+    environment:
+      discovery.type: single-node
+      ELASTIC_USERNAME: elastic
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      ES_JAVA_OPTS: '-Xms256m -Xmx256m'
+
+  logstash:
+    image: logstash:${STACK_VERSION}
+    labels:
+      co.elastic.logs/enabled: false
+    volumes:
+      - './elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf'
+    ports:
+      - "5044:5044"
+    environment:
+      LS_JAVA_OPTS: '-Xmx256m -Xms256m'
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:${STACK_VERSION}
+    labels:
+      co.elastic.logs/enabled: false
+    ports:
+      - '5601:5601'
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    image: elastic/filebeat:${STACK_VERSION}
+    labels:
+      co.elastic.logstash/enabled: false
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - 'oncall-filebeat:/home/oncall/var/log'
+      - './elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro'
+      - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    depends_on:
+      - logstash
+
+volumes:
+  oncall-filebeat:
