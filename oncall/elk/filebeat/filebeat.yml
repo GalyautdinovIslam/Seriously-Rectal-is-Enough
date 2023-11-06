@@ -9,7 +9,14 @@ filebeat.autodiscover:
     hints.enabled: true
 
 processors:
-  add_docker_metadata:
+  - dissect:
+      tokenizer: "%{timestampTZ} [%{status_code|integer}] %{http_method} %{endpoint} %{ip_address} [%{user_agent}] RT:%{rt|integer} REF:%{ref} SZ:%{sz|integer} %{protocol}"
+      field: "message"
+      target_prefix: "dissect"
+  - drop_fields:
+      fields: [ "dissect.timestampTZ", "dissect.http_method", "dissect.endpoint", "dissect.user_agent", "dissect.rt", "dissect.ref", "dissect.sz", "dissect.protocol"]
+      ignore_missing: true
+  - add_docker_metadata:
 
 output.logstash:
   hosts: [ "logstash:5044" ]
