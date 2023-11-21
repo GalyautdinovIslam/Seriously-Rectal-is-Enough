@@ -25,7 +25,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "c31257bc-bc20-4e5c-ab8d-fa342f154918"
+        "uid": "afd2b6b0-b580-4436-95cf-74495085117f"
       },
       "description": "Метрики из кастомного экспортера для Oncall",
       "fieldConfig": {
@@ -87,7 +87,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "c31257bc-bc20-4e5c-ab8d-fa342f154918"
+            "uid": "afd2b6b0-b580-4436-95cf-74495085117f"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -105,7 +105,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "c31257bc-bc20-4e5c-ab8d-fa342f154918"
+            "uid": "afd2b6b0-b580-4436-95cf-74495085117f"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -122,7 +122,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "c31257bc-bc20-4e5c-ab8d-fa342f154918"
+            "uid": "afd2b6b0-b580-4436-95cf-74495085117f"
           },
           "disableTextWrap": false,
           "editorMode": "builder",

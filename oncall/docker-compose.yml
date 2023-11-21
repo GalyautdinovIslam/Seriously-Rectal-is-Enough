@@ -47,22 +47,22 @@ services:
       - './textfile:/textfile'
     command:
       - "--path.rootfs=/host"
-      - "--no-collector.arp" # кажется лишним, так я еще и сети не люблю
-      - "--no-collector.conntrack" # метрики показывают, что не используется + /proc/sys/net/netfilter/ отсутствует
-      - "--no-collector.dmi" # что-то про desktop, кажется не нужным + не используется
-      - "--no-collector.fibrechannel" #  метрики показывают, что не используется
-      - "--no-collector.hwmon" #  метрики показывают, что не используется
-      - "--no-collector.infiniband" #  метрики показывают, что не используется
-      - "--no-collector.ipvs" #  метрики нулевые + опять сети
-      - "--no-collector.nfs" #  метрики показывают, что не используется
-      - "--no-collector.nfsd" #  метрики показывают, что не используется
-      - "--no-collector.nvme" #  метрики показывают, что не используется
-      - "--no-collector.os" #  метрики показывают, что не используется
-      - "--no-collector.powersupplyclass" #  не знаю, что такое
-      - "--no-collector.pressure" #  метрики показывают, что не используется
-      - "--no-collector.rapl" #  метрики показывают, что не используется
-      - "--no-collector.tapestats" #  метрики показывают, что не используется
-      - "--no-collector.zfs" #  метрики показывают, что не используется
+#      - "--no-collector.arp" # кажется лишним, так я еще и сети не люблю
+#      - "--no-collector.conntrack" # метрики показывают, что не используется + /proc/sys/net/netfilter/ отсутствует
+#      - "--no-collector.dmi" # что-то про desktop, кажется не нужным + не используется
+#      - "--no-collector.fibrechannel" #  метрики показывают, что не используется
+#      - "--no-collector.hwmon" #  метрики показывают, что не используется
+#      - "--no-collector.infiniband" #  метрики показывают, что не используется
+#      - "--no-collector.ipvs" #  метрики нулевые + опять сети
+#      - "--no-collector.nfs" #  метрики показывают, что не используется
+#      - "--no-collector.nfsd" #  метрики показывают, что не используется
+#      - "--no-collector.nvme" #  метрики показывают, что не используется
+#      - "--no-collector.os" #  метрики показывают, что не используется
+#      - "--no-collector.powersupplyclass" #  не знаю, что такое
+#      - "--no-collector.pressure" #  метрики показывают, что не используется
+#      - "--no-collector.rapl" #  метрики показывают, что не используется
+#      - "--no-collector.tapestats" #  метрики показывают, что не используется
+#      - "--no-collector.zfs" #  метрики показывают, что не используется
       - "--collector.textfile.directory=/textfile"
     depends_on:
       - prometheus
