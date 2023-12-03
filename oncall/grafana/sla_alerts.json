@@ -1,0 +1,767 @@
+{
+  "apiVersion": 1,
+  "groups": [
+    {
+      "orgId": 1,
+      "name": "Alerts Evaluation",
+      "folder": "Alerts",
+      "interval": "30s",
+      "rules": [
+        {
+          "uid": "f8da6f9c-7a2e-4cf6-858b-ab7d4ffb0257",
+          "title": "sla_prober_get_teams_success",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_get_teams_success_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 0
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        3.5,
+                        4.5
+                      ],
+                      "type": "outside_range"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 3,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "3",
+            "description": "Ожидалось, что значение для sla_prober_get_teams_success будет в районе 4х",
+            "summary": "sla_prober_get_teams_success != 4"
+          },
+          "isPaused": false
+        },
+        {
+          "uid": "b0cc5d7f-b676-46cf-a334-db48b6b6dc46",
+          "title": "sla_prober_create_user_success",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_create_user_success_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 0
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        3.5,
+                        4.5
+                      ],
+                      "type": "outside_range"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 5,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "5",
+            "description": "Ожидалось, что значение для sla_prober_create_user_success будет в районе 4х",
+            "summary": "sla_prober_create_user_success != 4"
+          },
+          "isPaused": false
+        },
+        {
+          "uid": "a7dff815-4cc8-4451-956f-218e2f6c1f51",
+          "title": "sla_prober_remove_user_success",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_remove_user_success_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 0
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        3.5,
+                        4.5
+                      ],
+                      "type": "outside_range"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 4,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "4",
+            "description": "Ожидалось, что значение для sla_prober_remove_user_success будет в районе 4х",
+            "summary": "sla_prober_remove_user_success != 4"
+          },
+          "isPaused": false
+        },
+        {
+          "uid": "fcb1081f-7df4-4bdb-a722-215d6e0be977",
+          "title": "sla_prober_get_teams_fail",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_get_teams_fail_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 1
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        0.5,
+                        4.5
+                      ],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 6,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "6",
+            "description": "Ожидалось, что значение для sla_prober_get_teams_fail будет в районе 0",
+            "summary": "sla_prober_get_teams_fail != 0"
+          },
+          "isPaused": false
+        },
+        {
+          "uid": "d3417cf9-7610-4d3c-a27c-64cdb5d89f46",
+          "title": "sla_prober_create_user_fail",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_create_user_fail_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 1
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        0.5,
+                        4.5
+                      ],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 7,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "7",
+            "description": "Ожидалось, что значение для sla_prober_create_user_fail будет в районе 0",
+            "runbook_url": "",
+            "summary": "sla_prober_create_user_fail != 0"
+          },
+          "labels": {
+            "": ""
+          },
+          "isPaused": false
+        },
+        {
+          "uid": "afd08e2e-4ef6-4828-90b8-7a7bd7af5226",
+          "title": "sla_prober_remove_user_fail",
+          "condition": "C",
+          "data": [
+            {
+              "refId": "A",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "afd2b6b0-b580-4436-95cf-74495085117f",
+              "model": {
+                "editorMode": "code",
+                "expr": "increase(sla_prober_remove_user_fail_total[1m])",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+              }
+            },
+            {
+              "refId": "B",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "B"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "settings": {
+                  "mode": "replaceNN",
+                  "replaceWithValue": 1
+                },
+                "type": "reduce"
+              }
+            },
+            {
+              "refId": "C",
+              "relativeTimeRange": {
+                "from": 86400,
+                "to": 0
+              },
+              "datasourceUid": "__expr__",
+              "model": {
+                "conditions": [
+                  {
+                    "evaluator": {
+                      "params": [
+                        0.5,
+                        4.5
+                      ],
+                      "type": "gt"
+                    },
+                    "operator": {
+                      "type": "and"
+                    },
+                    "query": {
+                      "params": [
+                        "C"
+                      ]
+                    },
+                    "reducer": {
+                      "params": [],
+                      "type": "last"
+                    },
+                    "type": "query"
+                  }
+                ],
+                "datasource": {
+                  "type": "__expr__",
+                  "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+              }
+            }
+          ],
+          "dasboardUid": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+          "panelId": 8,
+          "noDataState": "NoData",
+          "execErrState": "Error",
+          "for": "30s",
+          "annotations": {
+            "__dashboardUid__": "f0aac602-d9df-41d9-847a-d4274f8c8388",
+            "__panelId__": "8",
+            "description": "Ожидалось, что значение для sla_prober_remove_user_fail будет в районе 0",
+            "summary": "sla_prober_remove_user_fail != 0"
+          },
+          "isPaused": false
+        }
+      ]
+    }
+  ]
+}
