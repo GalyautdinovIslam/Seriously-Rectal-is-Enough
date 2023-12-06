@@ -1,0 +1,30 @@
+groups:
+  - name: Blackbox-Exporter.
+    rules:
+      - alert: За последнюю минуту Blackbox не получил 200 ответ.
+        expr: probe_http_status_code != 200
+        for: 1m
+        labels:
+          severity: critical
+  - name: Oncall
+    rules:
+      - alert: Fail во время отправки сообщения.
+        expr: (increase(oncallnotifier_message_fail_cnt[1m])) > 0
+        for: 0s
+        labels:
+          severity: critical
+
+  - name: Node-Exporter
+    rules:
+      - alert: За последнюю минуту процессор нагружен менее, чем на 10 процентов.
+        expr: (sum by(instance) (irate(node_cpu_seconds_total{job="oncall-web", mode!="idle"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{job="oncall-web"}[1m]))) * 100) < 10
+        for: 1m
+        labels:
+          severity: warning
+  - name: Custom-Exporter
+    rules:
+      - alert: Обнаружена команда, без primary-дежурного на сегодня.
+        expr: no_primary_today > 0
+        for: 30s
+        labels:
+          severity: warning

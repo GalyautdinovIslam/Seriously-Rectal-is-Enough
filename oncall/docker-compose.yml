@@ -29,6 +29,7 @@ services:
     image: prom/prometheus:v2.36.2
     volumes:
       - ./prometheus/:/etc/prometheus/
+      - './alertmanager/alert_rules.yml:/etc/prometheus/alert_rules.yml'
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=15d'
@@ -138,6 +139,15 @@ services:
     depends_on:
       - prometheus
       - elasticsearch
+
+  alertmanager:
+    image: prom/alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - './alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml'
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
 
 volumes:
   oncall-filebeat:

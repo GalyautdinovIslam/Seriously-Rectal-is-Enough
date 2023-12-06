@@ -1,0 +1,39 @@
+global:
+  resolve_timeout: 10s
+
+route:
+  group_by: ['alertname']
+  group_wait: 3s
+  receiver: telegram_critical
+  routes:
+    - receiver: telegram_critical
+      matchers:
+        - severity="critical"
+    - receiver: telegram_warning
+      matchers:
+        - severity="warning"
+      active_time_intervals:
+        - work-time
+
+time_intervals:
+  - name: work-time
+    time_intervals:
+      - times:
+          - start_time: 10:00
+            end_time: 23:00
+        weekdays: ["monday:friday"]
+        location: 'Europe/Moscow'
+
+receivers:
+  - name: 'telegram_critical'
+    telegram_configs:
+      - bot_token: '6886024337:AAHfWLEZNx-CbGNpFgZeGfG3IWgwM28eQnY'
+        api_url: 'https://api.telegram.org'
+        chat_id: 5715863825
+        parse_mode: 'HTML'
+  - name: 'telegram_warning'
+    telegram_configs:
+      - bot_token: '6957985556:AAF5C_-jvdQzW6oLHmbSIRtuh65ln-D_A6g'
+        api_url: 'https://api.telegram.org'
+        chat_id: 5715863825
+        parse_mode: 'HTML'
