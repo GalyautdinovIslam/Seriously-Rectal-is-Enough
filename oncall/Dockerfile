@@ -30,6 +30,7 @@ COPY ops/entrypoint.py /home/oncall/entrypoint.py
 COPY ops/textfile/directory_size.py /home/oncall/directory_size.py
 
 EXPOSE 8080
+EXPOSE 8081
 EXPOSE 8888
 
 CMD ["sudo", "-EHu", "oncall", "bash", "-c", "source /home/oncall/env/bin/activate && python -u /home/oncall/entrypoint.py && python -u /home/oncall/directory_size.py"]
